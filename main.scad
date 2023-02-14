@@ -55,10 +55,10 @@ bbco = calc_bridge_base_center_offset(
 main();
 
 module main() {
-    translate([0, 0, 10]) {
+    translate([0, 1.5 * RING_HEIGHT, 0]) {
         outer_ring();
     }
-    translate([0, 0, -10]) {
+    translate([0, -1.5 * RING_HEIGHT, 0]) {
         inner_ring();
     }
 }
