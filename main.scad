@@ -30,11 +30,12 @@ CONNECTOR_SPIKE_BASE_R = 2;
 CAP_THICKNESS = 1;
 CAP_SPREAD = 1;
 
-//epsilon
-EPS = 0.01;
+// epsilon to ensure intersection
+EPS = 0.001;
+// epsilon to ensure non-intersection
+HOLE_EPS = 0.2;
 
 $fn = 64;
-// $fs = 0.1;
 
 bbth = calc_bridge_base_thickness(
     ring_width=RING_WIDTH,
@@ -107,10 +108,10 @@ module inner_ring() {
         decorated_base_ring();
         difference() {
             cube(size=[BRIDGE_LENGTH, 999, 999], center=true);
-            cube(size=[BRIDGE_LENGTH, 2*bbco + EPS, 999], center=true);
+            cube(size=[BRIDGE_LENGTH, 2*bbco + HOLE_EPS, 999], center=true);
         }
         rotate(90, [1, 0, 0]) {
-            cylinder(h=999, r=CONNECTOR_SPIKE_BASE_R + EPS*2, center=true);
+            cylinder(h=999, r=CONNECTOR_SPIKE_BASE_R + HOLE_EPS*2, center=true);
         }
     }
 }
@@ -125,8 +126,7 @@ module decorated_base_ring() {
             bridge_length=BRIDGE_LENGTH,
             thickness=RING_THICKNESS,
             hole_offset=HOLE_OFFSET,
-            semicylinder_offset=HALFRING_OFFSET,
-            eps=EPS
+            semicylinder_offset=HALFRING_OFFSET
         );
         side_spikes();
         ring_spikes();

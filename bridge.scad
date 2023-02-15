@@ -1,5 +1,5 @@
   // left orientation = negative
- module bridge_base(orientation, ring_width, ring_height, hole_width, hole_height, bridge_length, thickness, hole_offset, semicylinder_offset, eps) {
+ module bridge_base(orientation, ring_width, ring_height, hole_width, hole_height, bridge_length, thickness, hole_offset, semicylinder_offset) {
     bbth = calc_bridge_base_thickness(
         ring_width=ring_width,
         ring_height=ring_height,
@@ -17,8 +17,8 @@
     );
     translate([0, orientation * bbco, 0]) {
          difference() {
-            scale([bridge_length/10, bbth/10, thickness/10]) {
-                cube(size=[10, 10, 2*10], center=true);
+            scale([bridge_length, bbth, thickness]) {
+                cube(size=[1, 1, 2*1], center=true);
             }
             translate([bridge_length/2, 0, -bbth]) {
                 rotate(45, [0, 1, 0]) {
