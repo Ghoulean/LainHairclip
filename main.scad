@@ -33,7 +33,14 @@ CAP_SPREAD = 1;
 // epsilon to ensure intersection
 EPS = 0.001;
 // epsilon to ensure non-intersection
-HOLE_EPS = 0.2;
+HOLE_EPS = 0.4;
+
+DISPLAY_OUTER_ONLY = 0;
+DISPLAY_INNER_ONLY = 1;
+DISPLAY_BOTH = 2;
+DISPLAY_ASSEMBLED = 3;
+
+DISPLAY_MODE = DISPLAY_BOTH;
 
 $fn = 64;
 
@@ -56,10 +63,21 @@ bbco = calc_bridge_base_center_offset(
 main();
 
 module main() {
-    translate([0, 1.5 * RING_HEIGHT, 0]) {
+    if (DISPLAY_MODE == DISPLAY_BOTH) {
+        translate([0, 1.5 * RING_HEIGHT, 0]) {
+            outer_ring();
+        }
+        translate([0, -1.5 * RING_HEIGHT, 0]) {
+            inner_ring();
+        }
+    } else if (DISPLAY_MODE == DISPLAY_ASSEMBLED) {
         outer_ring();
-    }
-    translate([0, -1.5 * RING_HEIGHT, 0]) {
+        rotate(90, [0, 1, 0]) {
+            inner_ring();
+        }
+    } else if (DISPLAY_MODE == DISPLAY_OUTER_ONLY) {
+        outer_ring();
+    } else if (DISPLAY_MODE == DISPLAY_INNER_ONLY) {
         inner_ring();
     }
 }
@@ -108,10 +126,10 @@ module inner_ring() {
         decorated_base_ring();
         difference() {
             cube(size=[BRIDGE_LENGTH, 999, 999], center=true);
-            cube(size=[BRIDGE_LENGTH, 2*bbco + HOLE_EPS, 999], center=true);
+            cube(size=[BRIDGE_LENGTH, 2*bbco - HOLE_EPS, 999], center=true);
         }
         rotate(90, [1, 0, 0]) {
-            cylinder(h=999, r=CONNECTOR_SPIKE_BASE_R + HOLE_EPS*2, center=true);
+            cylinder(h=999, r=CONNECTOR_SPIKE_BASE_R + HOLE_EPS, center=true);
         }
     }
 }

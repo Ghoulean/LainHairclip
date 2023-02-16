@@ -1,4 +1,4 @@
-  // left orientation = negative
+// left orientation = negative
  module bridge_base(orientation, ring_width, ring_height, hole_width, hole_height, bridge_length, thickness, hole_offset, semicylinder_offset) {
     bbth = calc_bridge_base_thickness(
         ring_width=ring_width,
