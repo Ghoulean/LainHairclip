@@ -20,14 +20,14 @@
             scale([bridge_length, bbth, thickness]) {
                 cube(size=[1, 1, 2*1], center=true);
             }
-            translate([bridge_length/2, 0, -bbth]) {
+            translate([bridge_length/2, 0, -thickness]) {
                 rotate(45, [0, 1, 0]) {
-                    cube(size=[10/sqrt(2), 10, 10/sqrt(2)], center=true);
+                    cube(size=[thickness * sqrt(2), 999, 999], center=true);
                 }
             }
-            translate([-bridge_length/2, 0, bbth]) {
+            translate([-bridge_length/2, 0, thickness]) {
                 rotate(45, [0, 1, 0]) {
-                    cube(size=[10/sqrt(2), 10, 10/sqrt(2)], center=true);
+                    cube(size=[thickness * sqrt(2), 999, 999], center=true);
                 }
             }
         }

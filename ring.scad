@@ -64,7 +64,7 @@ module _semicylinder(orientation, ring_width, ring_height, hole_width, hole_heig
         }
         scale([hole_width, hole_height, 999]) {
             translate([orientation * (hole_offset / hole_width), 0, 0]) {
-                cylinder(h=10, r1=1, r2=1, center=true);
+                cylinder(h=1, r1=1, r2=1, center=true);
             }
         }
         scale([ring_width, ring_height, 999]) {

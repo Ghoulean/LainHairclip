@@ -2,45 +2,45 @@ use <bridge.scad>
 use <ring.scad>
 use <spike.scad>
 
-RING_WIDTH = 35;
-RING_HEIGHT = 15;
+RING_WIDTH = 17.5;
+RING_HEIGHT = 7.5;
 
-HOLE_WIDTH = 26;
-HOLE_HEIGHT = 10;
+HOLE_WIDTH = 13;
+HOLE_HEIGHT = 5;
 
-RING_THICKNESS = 5;
+RING_THICKNESS = 2.5;
 
-HOLE_OFFSET = -4.5;
-HALFRING_OFFSET = 1;
+HOLE_OFFSET = -2.25;
+HALFRING_OFFSET = 0.5;
 
-BRIDGE_LENGTH = 15;
+BRIDGE_LENGTH = 7.5;
 
-SIDE_SPIKE_LENGTH = 13;
-SIDE_SPIKE_BASE_R = 2;
+SIDE_SPIKE_LENGTH = 6.5;
+SIDE_SPIKE_BASE_R = 1;
 
-RING_SPIKE_LENGTH = 9;
-RING_SPIKE_BASE_R = 2;
-RING_SPIKE_OFFSET_X = 23;
-RING_SPIKE_OFFSET_Y = 1;
+RING_SPIKE_LENGTH = 4.5;
+RING_SPIKE_BASE_R = 1;
+RING_SPIKE_OFFSET_X = 11.5;
+RING_SPIKE_OFFSET_Y = 0.5;
 RING_SPIKE_ROTATION_DEG = 1;
 
-CONNECTOR_SPIKE_LENGTH = 5;
-CONNECTOR_SPIKE_BASE_R = 2;
+CONNECTOR_SPIKE_LENGTH = 2.5;
+CONNECTOR_SPIKE_BASE_R = 1;
 
-CAP_THICKNESS = 1;
-CAP_SPREAD = 1;
+CAP_THICKNESS = 0.5;
+CAP_SPREAD = 0.5;
 
 // epsilon to ensure intersection
 EPS = 0.001;
 // epsilon to ensure non-intersection
-HOLE_EPS = 0.4;
+HOLE_EPS = 0.2;
 
 DISPLAY_OUTER_ONLY = 0;
 DISPLAY_INNER_ONLY = 1;
 DISPLAY_BOTH = 2;
 DISPLAY_ASSEMBLED = 3;
 
-DISPLAY_MODE = DISPLAY_BOTH;
+DISPLAY_MODE = DISPLAY_ASSEMBLED;
 
 $fn = 64;
 
@@ -71,9 +71,11 @@ module main() {
             inner_ring();
         }
     } else if (DISPLAY_MODE == DISPLAY_ASSEMBLED) {
-        outer_ring();
-        rotate(90, [0, 1, 0]) {
-            inner_ring();
+        rotate(90, [1, 0, 0]) {
+            outer_ring();
+            rotate(90, [0, 1, 0]) {
+                inner_ring();
+            }
         }
     } else if (DISPLAY_MODE == DISPLAY_OUTER_ONLY) {
         outer_ring();
